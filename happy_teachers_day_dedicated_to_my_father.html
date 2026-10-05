@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="hi" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Teachers Day, Papa! ❤️</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              navy: {
+                800: "#0f172a",
+                900: "#090d16",
+              },
+              gold: {
+                300: "#fde047",
+                400: "#facc15",
+                500: "#eab308",
+                600: "#ca8a04",
+              },
+            },
+            fontFamily: {
+              serif: ['"Playfair Display"', "serif"],
+              sans: ["Poppins", "sans-serif"],
+              handwriting: ["Caveat", "cursive"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #090d16;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #ca8a04;
+        border-radius: 4px;
+      }
+
+      /* Ambient Glow & Background Animation */
+      .bg-radial-gradient {
+        background: radial-gradient(
+          circle at 50% 20%,
+          #1e293b 0%,
+          #0f172a 60%,
+          #04070d 100%
+        );
+      }
+
+      .gold-border-glow {
+        box-shadow:
+          0 0 25px rgba(234, 179, 8, 0.25),
+          inset 0 0 15px rgba(234, 179, 8, 0.15);
+      }
+
+      .text-gold-gradient {
+        background: linear-gradient(
+          135deg,
+          #fffbeb 0%,
+          #fde047 50%,
+          #ca8a04 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      /* Floating particles canvas overlay */
+      #bgCanvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* Custom Animations */
+      @keyframes floatSlow {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-12px) rotate(1deg);
+        }
+      }
+
+      .animate-float {
+        animation: floatSlow 6s ease-in-out infinite;
+      }
+
+      @keyframes pulseGlow {
+        0%,
+        100% {
+          opacity: 0.4;
+          filter: blur(20px);
+        }
+        50% {
+          opacity: 0.8;
+          filter: blur(30px);
+        }
+      }
+
+      .animate-pulse-glow {
+        animation: pulseGlow 4s ease-in-out infinite;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-navy-900 text-slate-100 font-sans min-h-screen overflow-x-hidden selection:bg-gold-500 selection:text-navy-900 relative"
+  >
+    <!-- Background Canvas for Interactive Floating Particles -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- INTRO SPLASH SCREEN (Fades out after 3.2 seconds) -->
+    <div
+      id="introSplash"
+      class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-navy-900 transition-opacity duration-1000 ease-out p-6 text-center"
+    >
+      <div class="absolute inset-0 bg-radial-gradient opacity-80"></div>
+
+      <div class="relative z-10 space-y-6 max-w-2xl animate-float">
+        <div
+          class="inline-block p-4 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-400 mb-2"
+        >
+          <i class="fa-solid font-serif text-3xl">👨‍🏫</i>
+        </div>
+
+        <h1
+          class="text-4xl md:text-6xl font-serif font-bold text-gold-gradient tracking-wide leading-tight drop-shadow-lg"
+        >
+          Happy Teachers Day, Papa! ❤️
+        </h1>
+
+        <p
+          class="text-xl md:text-2xl text-amber-100/90 font-light italic font-serif"
+        >
+          "To the first teacher, the best mentor, and my ultimate hero."
+        </p>
+
+        <div class="pt-6">
+          <div
+            class="w-16 h-1 bg-gradient-to-r from-transparent via-gold-400 to-transparent mx-auto rounded-full animate-pulse"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN SITE CONTAINER -->
+    <div
+      id="mainContent"
+      class="relative z-10 min-h-screen flex flex-col justify-between opacity-0 transition-opacity duration-1000"
+    >
+      <!-- Top Utility Bar (Music Toggle & Fireworks Trigger) -->
+      <header
+        class="p-4 md:p-6 flex justify-between items-center max-w-6xl w-full mx-auto"
+      >
+        <div class="flex items-center space-x-3">
+          <span
+            class="w-3 h-3 rounded-full bg-gold-400 inline-block animate-ping"
+          ></span>
+          <span
+            class="text-xs uppercase tracking-widest text-gold-400/90 font-medium"
+            >To My Dearest Father</span
+          >
+        </div>
+
+        <div class="flex items-center space-x-3">
+          <!-- Audio Toggle Button -->
+          <button
+            id="musicBtn"
+            title="Toggle Soft Ambient Music"
+            class="px-4 py-2 rounded-full bg-slate-800/80 border border-slate-700/80 hover:border-gold-500/50 text-slate-300 hover:text-gold-400 transition-all text-xs md:text-sm flex items-center space-x-2 backdrop-blur-md shadow-lg"
+          >
+            <i id="musicIcon" class="fa-solid fa-music text-gold-400"></i>
+            <span id="musicText">Ambient Sound</span>
+          </button>
+
+          <!-- Confetti Trigger Button -->
+          <button
+            id="celebrateBtn"
+            class="px-4 py-2 rounded-full bg-gradient-to-r from-gold-500 to-amber-600 text-navy-900 font-semibold hover:brightness-110 transition-all text-xs md:text-sm flex items-center space-x-2 shadow-lg shadow-gold-500/20 active:scale-95"
+          >
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span>Celebrate 🎉</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- MAIN CONTENT SECTION -->
+      <main class="max-w-6xl mx-auto px-4 py-6 md:py-10 my-auto w-full">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
+        >
+          <!-- LEFT COLUMN: Father's Photo Frame with Badges -->
+          <div class="lg:col-span-5 flex flex-col items-center">
+            <div class="relative w-full max-w-sm group">
+              <!-- Glowing backdrop effect -->
+              <div
+                class="absolute -inset-1 bg-gradient-to-r from-gold-500 to-amber-600 rounded-3xl opacity-30 blur-xl group-hover:opacity-60 transition duration-1000"
+              ></div>
+
+              <!-- Photo Card Wrapper -->
+              <div
+                class="relative bg-navy-800/90 border border-gold-500/30 rounded-3xl p-4 md:p-6 gold-border-glow backdrop-blur-xl text-center"
+              >
+                <!-- Frame & Image Container -->
+                <div
+                  class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-slate-900/80 border-2 border-gold-400/40 shadow-inner flex items-center justify-center"
+                >
+                  <img
+                    id="fatherPhoto"
+                    src="/papa.jpg"
+                    alt="World's Best Father"
+                    class="w-full h-full object-cover transition duration-700 hover:scale-105"
+                    onerror="this.src = '/papa.img'"
+                  />
+
+                  <!-- Floating Upload Button Overlay -->
+
+                  <input
+                    type="file"
+                    id="photoInput"
+                    accept="image/*"
+                    class="hidden"
+                  />
+                </div>
+
+                <!-- Decorative Badge below Photo -->
+                <div class="mt-5 space-y-2">
+                  <div
+                    class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/30 text-gold-300 text-xs font-medium"
+                  >
+                    <i class="fa-solid fa-award"></i>
+                    <span>Certified Best Teacher</span>
+                  </div>
+                  <h3
+                    id="papaTitleDisplay"
+                    class="text-2xl font-serif font-bold text-slate-100"
+                  >
+                    My Father, My Mentor
+                  </h3>
+                  <p class="text-xs text-slate-400">
+                    Guiding light since day one ✨
+                  </p>
+                </div>
+              </div>
+
+              <!-- Ribbon Label Overlay -->
+              <div
+                class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-600 via-gold-500 to-amber-600 text-navy-900 font-bold px-6 py-2 rounded-full shadow-lg text-xs md:text-sm tracking-wider uppercase flex items-center space-x-2 border border-yellow-200/40 whitespace-nowrap"
+              >
+                <i class="fa-solid fa-crown text-navy-900"></i>
+                <span>World's Best Father</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: Heartfelt Editable Letter -->
+          <div class="lg:col-span-7">
+            <div
+              class="bg-slate-900/70 border border-slate-700/60 rounded-3xl p-6 md:p-8 backdrop-blur-xl relative shadow-2xl space-y-6"
+            >
+              <!-- Header & Edit Controls -->
+              <div
+                class="flex justify-between items-start border-b border-slate-800 pb-4"
+              >
+                <div>
+                  <span class="text-gold-400 font-handwriting text-2xl"
+                    >Dear Papa,</span
+                  >
+                  <h2
+                    class="text-2xl md:text-3xl font-serif font-bold text-slate-100 mt-1"
+                  >
+                    Happy Teachers Day!
+                  </h2>
+                </div>
+              </div>
+
+              <!-- The Letter Content (Display Mode) -->
+              <div
+                id="letterDisplay"
+                class="prose prose-invert max-w-none space-y-4 text-slate-300 font-sans leading-relaxed text-sm md:text-base"
+              >
+                <p
+                  class="first-letter:text-4xl first-letter:font-serif first-letter:text-gold-400 first-letter:mr-2 first-letter:float-left"
+                >
+                  Today, through this little website, I want to wish the
+                  happiest Teachers’ Day to the person who has been my very
+                  first teacher, my greatest mentor, and one of the most
+                  precious blessings in my life — my father. You were the first
+                  person who taught me how to speak, how to walk, how to
+                  understand the world, and how to find my way through it. Long
+                  before I learned anything from books or classrooms, I learned
+                  from you. Whatever I am today, whatever I have learned, and
+                  whatever skills I carry in my hands — even the ability to
+                  create this website, to communicate with people, and to
+                  express myself — is a reflection of your effort, your
+                  guidance, your patience, and your prayers.
+                </p>
+                <p>
+                  I truly believe that a person can have many teachers
+                  throughout life, but there can hardly be a teacher greater
+                  than a parent. And for me, no teacher could ever hold a place
+                  higher than you. On this Teachers’ Day, I pray that Allah
+                  Almighty blesses you with every success and every happiness of
+                  this world and the Hereafter. May He fulfill your heartfelt
+                  wishes, fill your heart with everlasting peace, and keep you
+                  steadfast upon Islam throughout your life. May Allah grant you
+                  a life filled with faith, goodness, dignity, and countless
+                  blessings. And when the time comes for Allah to call you back
+                  to Him, may He grant you the honour of meeting Him in a state
+                  of complete faith and with a heart full of Imaan.
+                </p>
+                <p>
+                  And may Allah, in Jannah, bless you with the honour of meeting
+                  and being in the company of our beloved Prophet Muhammad ﷺ.
+                  May Allah accept every prayer you have ever made, reward every
+                  sacrifice you have ever made for me, and make every effort you
+                  have invested in me a source of endless reward for you. Ameen,
+                  Ya Rabb-ul-Alameen. Happy Teachers’ Day, Papa. ❤️
+                </p>
+              </div>
+
+              <!-- Letter Signature -->
+              <div
+                class="pt-4 border-t border-slate-800/80 flex justify-between items-end"
+              >
+                <div>
+                  <p class="text-xs text-slate-400">
+                    With endless love & respect,
+                  </p>
+                  <p
+                    id="senderNameDisplay"
+                    class="text-xl font-handwriting text-gold-400 font-bold mt-1"
+                  >
+                    Your Loving Child ❤️
+                  </p>
+                </div>
+                <div class="text-right">
+                  <span
+                    class="text-3xl font-serif italic text-gold-500/20 font-bold"
+                    >#1 Teacher</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- FOOTER -->
+      <footer
+        class="p-6 text-center text-xs text-slate-500 border-t border-slate-800/60 mt-10"
+      >
+        <p>Made with ❤️ for Papa | Happy Teachers Day</p>
+      </footer>
+    </div>
+
+    <!-- EDIT MESSAGE MODAL -->
+    <div
+      id="editModal"
+      class="fixed inset-0 z-50 bg-navy-900/80 backdrop-blur-md flex items-center justify-center p-4 hidden"
+    >
+      <div
+        class="bg-slate-900 border border-gold-500/30 rounded-3xl p-6 max-w-lg w-full space-y-4 shadow-2xl"
+      >
+        <div
+          class="flex justify-between items-center border-b border-slate-800 pb-3"
+        >
+          <h3 class="text-lg font-serif font-bold text-gold-400">
+            Edit Your Personal Message
+          </h3>
+          <button id="closeModalBtn" class="text-slate-400 hover:text-white">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <div class="space-y-3">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1"
+              >Your Name / Signature</label
+            >
+            <input
+              type="text"
+              id="senderNameInput"
+              class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-sm text-slate-100 focus:outline-none focus:border-gold-500"
+              value="Your Loving Child ❤️"
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1"
+              >Your Letter Content (Supports HTML line breaks)</label
+            >
+            <textarea
+              id="letterTextInput"
+              rows="8"
+              class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-slate-100 focus:outline-none focus:border-gold-500 leading-relaxed"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="flex justify-end space-x-3 pt-2">
+          <button
+            id="cancelModalBtn"
+            class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-300"
+          >
+            Cancel
+          </button>
+          <button
+            id="saveLetterBtn"
+            class="px-5 py-2 rounded-xl bg-gold-500 hover:bg-gold-400 text-navy-900 font-semibold text-xs shadow-lg"
+          >
+            Save Message
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // --- 1. INTRO SPLASH & TRANSITION ---
+      window.addEventListener("load", () => {
+        // Trigger confetti during splash
+        triggerConfetti();
+
+        setTimeout(() => {
+          const splash = document.getElementById("introSplash");
+          const main = document.getElementById("mainContent");
+
+          splash.classList.add("opacity-0");
+          setTimeout(() => {
+            splash.style.display = "none";
+            main.classList.remove("opacity-0");
+          }, 1000);
+        }, 3000);
+      });
+
+      // --- 2. CONFETTI EFFECT ---
+      function triggerConfetti() {
+        if (typeof confetti === "function") {
+          confetti({
+            particleCount: 80,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ["#facc15", "#eab308", "#ffffff", "#ca8a04"],
+          });
+        }
+      }
+
+      document.getElementById("celebrateBtn").addEventListener("click", () => {
+        triggerConfetti();
+        // Sound effect on click
+        playTone(523.25, "sine", 0.15); // C5
+        setTimeout(() => playTone(659.25, "sine", 0.2), 150); // E5
+        setTimeout(() => playTone(783.99, "sine", 0.3), 300); // G5
+      });
+
+      // --- 3. PHOTO UPLOAD FEATURE ---
+      const photoInput = document.getElementById("photoInput");
+      const fatherPhoto = document.getElementById("fatherPhoto");
+
+      photoInput.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            fatherPhoto.src = event.target.result;
+            triggerConfetti();
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // --- 4. CUSTOM MESSAGE EDITOR MODAL LOGIC ---
+      const editModal = document.getElementById("editModal");
+      const editLetterBtn = document.getElementById("editLetterBtn");
+      const closeModalBtn = document.getElementById("closeModalBtn");
+      const cancelModalBtn = document.getElementById("cancelModalBtn");
+      const saveLetterBtn = document.getElementById("saveLetterBtn");
+
+      const letterDisplay = document.getElementById("letterDisplay");
+      const senderNameDisplay = document.getElementById("senderNameDisplay");
+
+      const letterTextInput = document.getElementById("letterTextInput");
+      const senderNameInput = document.getElementById("senderNameInput");
+
+      editLetterBtn.addEventListener("click", () => {
+        // Pre-fill text area with current display text
+        letterTextInput.value = letterDisplay.innerHTML
+          .trim()
+          .replace(/<p>/g, "")
+          .replace(/<\/p>/g, "\n\n");
+        senderNameInput.value = senderNameDisplay.innerText.trim();
+        editModal.classList.remove("hidden");
+      });
+
+      function hideModal() {
+        editModal.classList.add("hidden");
+      }
+
+      closeModalBtn.addEventListener("click", hideModal);
+      cancelModalBtn.addEventListener("click", hideModal);
+
+      saveLetterBtn.addEventListener("click", () => {
+        const paragraphs = letterTextInput.value
+          .split("\n\n")
+          .filter((p) => p.trim() !== "");
+        let newHtml = "";
+
+        paragraphs.forEach((p, idx) => {
+          if (idx === 0) {
+            newHtml += `<p class="first-letter:text-4xl first-letter:font-serif first-letter:text-gold-400 first-letter:mr-2 first-letter:float-left">${p}</p>`;
+          } else {
+            newHtml += `<p>${p}</p>`;
+          }
+        });
+
+        letterDisplay.innerHTML = newHtml;
+        senderNameDisplay.innerText =
+          senderNameInput.value || "Your Loving Child ❤️";
+        hideModal();
+        triggerConfetti();
+      });
+
+      // --- 5. WEB AUDIO SYNTH (Ambient Soft Background Chords) ---
+      let audioCtx = null;
+      let isMusicPlaying = false;
+      let melodyInterval = null;
+
+      const musicBtn = document.getElementById("musicBtn");
+      const musicIcon = document.getElementById("musicIcon");
+      const musicText = document.getElementById("musicText");
+
+      function playTone(freq, type = "sine", duration = 1) {
+        if (!audioCtx)
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(
+          0.0001,
+          audioCtx.currentTime + duration,
+        );
+
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      }
+
+      function toggleMusic() {
+        if (!isMusicPlaying) {
+          isMusicPlaying = true;
+          musicIcon.className =
+            "fa-solid fa-volume-high text-gold-400 animate-pulse";
+          musicText.innerText = "Music Playing";
+
+          // Soft ambient pentatonic chord progression
+          const notes = [261.63, 293.66, 329.63, 392.0, 440.0, 523.25]; // C D E G A C
+          melodyInterval = setInterval(() => {
+            const randomNote = notes[Math.floor(Math.random() * notes.length)];
+            playTone(randomNote, "sine", 2.5);
+          }, 1200);
+        } else {
+          isMusicPlaying = false;
+          musicIcon.className = "fa-solid fa-music text-gold-400";
+          musicText.innerText = "Ambient Sound";
+          if (melodyInterval) clearInterval(melodyInterval);
+        }
+      }
+
+      musicBtn.addEventListener("click", toggleMusic);
+
+      // --- 6. BACKGROUND PARTICLES CANVAS ANIMATION ---
+      const canvas = document.getElementById("bgCanvas");
+      const ctx = canvas.getContext("2d");
+
+      let particles = [];
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      window.addEventListener("resize", resizeCanvas);
+      resizeCanvas();
+
+      class Particle {
+        constructor() {
+          this.reset();
+        }
+
+        reset() {
+          this.x = Math.random() * canvas.width;
+          this.y = canvas.height + Math.random() * 50;
+          this.size = Math.random() * 2.5 + 0.5;
+          this.speedY = Math.random() * 0.8 + 0.2;
+          this.speedX = (Math.random() - 0.5) * 0.3;
+          this.opacity = Math.random() * 0.5 + 0.2;
+        }
+
+        update() {
+          this.y -= this.speedY;
+          this.x += this.speedX;
+
+          if (this.y < -10) {
+            this.reset();
+          }
+        }
+
+        draw() {
+          ctx.fillStyle = `rgba(250, 204, 21, ${this.opacity})`;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function initParticles() {
+        particles = [];
+        const particleCount = Math.floor(window.innerWidth / 20);
+        for (let i = 0; i < particleCount; i++) {
+          particles.push(new Particle());
+        }
+      }
+
+      function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p) => {
+          p.update();
+          p.draw();
+        });
+        requestAnimationFrame(animateParticles);
+      }
+
+      initParticles();
+      animateParticles();
+    </script>
+  </body>
+</html>
